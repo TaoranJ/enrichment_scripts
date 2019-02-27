@@ -1,6 +1,6 @@
 # Enrichment Scripts
 
-Simple scripts for enrichment on text content. Multi-processing is supported. 
+Simple and easy-to-use scripts for enrichment on text content. Multiprocessing is supported. 
 
 ## Installation
 
@@ -37,4 +37,4 @@ Usage of the script is straightforward. Each line of the input files is in JSON 
     "title": "Golf glove"
 }
 ```
-`--inputs` are the path to input documents. `--ouput` is the ouptut directory.
+`--inputs` are the path to input documents. `--ouput` is the ouptut directory. `--cores` tell script how many cores to use.
