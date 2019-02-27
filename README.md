@@ -5,13 +5,11 @@
 If pip is used, then install requirements with the following command. 
 
 ```bash
-# if pip is used
 pip install -r requirements.txt
 ```
 If conda is used, then install create virtual environment and install requirements with the following command.
 
 ```bash
-# if conda is used
 conda create --name <env> --file requirements.txt
 ```
 
