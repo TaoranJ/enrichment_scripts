@@ -1,5 +1,7 @@
 # Enrichment Scripts
 
+Simple and easy-to-use scripts for enrichment on text content. Multiprocessing is supported. 
+
 ## Installation
 
 If pip is used, then install requirements with the following command. 
@@ -22,7 +24,7 @@ python -m spacy download en_core_web_lg
 ## How to use
 
 ```bash
-python document_enrichment.py --fields title abstract --inputs ./sample_dataset/patent.sample.json --output .
+python document_enrichment.py --cores 2 --fields title abstract --inputs ./sample_dataset/patent.sample.* --output .
 ```
 
 Usage of the script is straightforward. Each line of the input files is in JSON format, in which the context fields are given by `--fields` option.
@@ -35,4 +37,4 @@ Usage of the script is straightforward. Each line of the input files is in JSON 
     "title": "Golf glove"
 }
 ```
-`--inputs` are the path to input documents. `--ouput` is the ouptut directory.
+`--inputs` is the path to input documents. `--ouput` is the ouptut directory. `--cores` tells script how many cores to use.
