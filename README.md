@@ -2,12 +2,22 @@
 
 ## Installation
 
+If pip is used, then install requirements with the following command. 
+
 ```bash
 # if pip is used
 pip install -r requirements.txt
+```
+If conda is used, then install create virtual environment and install requirements with the following command.
+
+```bash
 # if conda is used
 conda create --name <env> --file requirements.txt
-# download Spacy corpus (e.g., en_core_web_lg)
+```
+
+Then download Spacy models. Following command download `en_core_web_lg` for English context enrichment.
+
+```bash
 python -m spacy download en_core_web_lg
 ```
 
