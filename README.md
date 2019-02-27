@@ -37,4 +37,4 @@ Usage of the script is straightforward. Each line of the input files is in JSON 
     "title": "Golf glove"
 }
 ```
-`--inputs` are the path to input documents. `--ouput` is the ouptut directory. `--cores` tell script how many cores to use.
+`--inputs` is the path to input documents. `--ouput` is the ouptut directory. `--cores` tells script how many cores to use.
