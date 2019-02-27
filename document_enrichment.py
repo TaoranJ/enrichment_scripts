@@ -19,8 +19,6 @@ import argparse
 import multiprocessing as mp
 
 from spacy_enrichment.spacy_enrichment import SpacyEnrichment
-from spacy_enrichment.predefined import GNIP_CONTENT, PATENT_CONTENT
-from spacy_enrichment.predefined import PUBLICATION_CONTENT
 
 
 def run_enricher(cores, cfields, ipaths, opath, chunk_size=10000,
@@ -134,15 +132,5 @@ if __name__ == "__main__":
     args = pparser.parse_args()
     files_path_validation(args.inputs)
     dir_path_validation(args.output, create_dir=True)
-    if args.gnip:
-        run_enricher(args.cores, GNIP_CONTENT, args.inputs, args.output,
-                     args.chunk_size, 1000)
-    elif args.patent:
-        run_enricher(args.cores, PATENT_CONTENT, args.inputs, args.output,
-                     args.chunk_size, 64)
-    elif args.publication:
-        run_enricher(args.cores, PUBLICATION_CONTENT, args.inputs, args.output,
-                     args.chunk_size, 1000)
-    else:
-        run_enricher(args.cores, args.fields, args.inputs, args.output,
-                     args.chunk_size, 64)
+    run_enricher(args.cores, args.fields, args.inputs, args.output,
+                 args.chunk_size, 64)
