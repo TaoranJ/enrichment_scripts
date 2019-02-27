@@ -24,7 +24,7 @@ python -m spacy download en_core_web_lg
 ## How to use
 
 ```bash
-python document_enrichment.py --cores 2 --fields title abstract --inputs ./sample_dataset/patent.sample.json --output .
+python document_enrichment.py --cores 2 --fields title abstract --inputs ./sample_dataset/patent.sample.* --output .
 ```
 
 Usage of the script is straightforward. Each line of the input files is in JSON format, in which the context fields are given by `--fields` option.
