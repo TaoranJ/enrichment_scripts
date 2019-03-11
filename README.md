@@ -2,17 +2,16 @@
 
 Simple and easy-to-use scripts for enrichment on text content. Multiprocessing is supported. 
 
-## Installation
+## Requirement
 
-If pip is used, then install requirements with the following command. 
-
+If `pip` is used: 
 ```bash
-pip install -r requirements.txt
+pip install textacy spacy
 ```
-If conda is used, then install create virtual environment and install requirements with the following command.
 
+If `conda` is used:
 ```bash
-conda create --name <env> --file requirements.txt
+conda install -c conda-forege spacy textacy
 ```
 
 Then download Spacy models. Following command download `en_core_web_lg` for English context enrichment.
