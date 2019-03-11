@@ -10,7 +10,7 @@ Examples
 .. code-block:: bash
 
    python document_enrichment --cores 2 --fields title abstract --inputs \
-sample_dataset/patent.sample.json --output .
+sample_dataset/patent.sample* --output .
 
 """
 
@@ -118,7 +118,7 @@ if __name__ == "__main__":
     pparser.add_argument('--inputs', nargs='+', required=True,
                          help='Path to input documents')
     pparser.add_argument('--output', required=True, help='Path to output dir.')
-    pparser.add_argument('--chunk_size', type=int, default=128,
+    pparser.add_argument('--chunk-size', type=int, default=128,
                          help='# of documents to handle at once')
     args = pparser.parse_args()
     files_path_validation(args.inputs)
