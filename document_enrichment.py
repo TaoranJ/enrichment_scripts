@@ -9,7 +9,7 @@ Examples
 
 .. code-block:: bash
 
-   python document_enrichment --patent --inputs \
+   python document_enrichment --cores 2 --fields title abstract --inputs \
 sample_dataset/patent.sample.json --output .
 
 """
@@ -111,15 +111,6 @@ def dir_path_validation(path, create_dir=False):
 if __name__ == "__main__":
     pparser = argparse.ArgumentParser()
     group = pparser.add_mutually_exclusive_group()
-    group.add_argument('--patent', action='store_true',
-                       help='Use predefiend patent format. See '
-                       'spacy_enrichment/predefined.py')
-    group.add_argument('--gnip', action='store_true',
-                       help='Use predefiend tweet format. See '
-                       'spacy_enrichment/predefined.py')
-    group.add_argument('--publication', action='store_true',
-                       help='Use predefiend publication format. See '
-                       'spacy_enrichment/predefined.py')
     group.add_argument('--fields', nargs='+', type=str,
                        help='Content fields to enrich.')
     pparser.add_argument('--cores', type=int, default=1,
