@@ -22,12 +22,9 @@ python -m spacy download en_core_web_lg
 
 ## How to use
 
-```bash
-python document_enrichment.py --cores 2 --fields title abstract --inputs ./sample_dataset/patent.sample.* --output .
-```
-
 Usage of the script is straightforward. Each line of the input files is in JSON format, in which the context fields are given by `--fields` option.
 
+For example, given **each line of the input file** has the format below.
 ```json
 {
     "id": "3930271", 
@@ -36,4 +33,9 @@ Usage of the script is straightforward. Each line of the input files is in JSON 
     "title": "Golf glove"
 }
 ```
-`--inputs` is the path to input documents. `--ouput` is the ouptut directory. `--cores` tells script how many cores to use.
+
+Enrichment can be done by running comand below.
+```bash
+python document_enrichment.py --cores 2 --fields title abstract --inputs ./sample_dataset/patent.sample.* --output .
+```
+where `--inputs` is the path to input documents. `--ouput` is the ouptut directory. `--cores` tells script how many cores to use.
