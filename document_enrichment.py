@@ -21,39 +21,26 @@ import multiprocessing as mp
 from spacy_enrichment.spacy_enrichment import SpacyEnrichment
 
 
-def run_enricher(cores, cfields, ipaths, opath, chunk_size=10000,
-                 batch_size=1000):
+def run_enricher(args):
     """
 
     Perform enrichment on multiple document files in parallel.
 
     Parameters
     ----------
-    cores : int
-        # of cores to use.
-    cfields : list
-        List of fields which have document contents saved.
-    ipaths : list
-        List of data files to enrich.
-    opath : str
-        /path/to/output/dir/.
-    chunk_size : int
-        # of documents to load into memory once.
-    batch_size : int
-        Buffersize for one batch.
+    args : dict
+        Arguments.
 
     """
 
-    if cores == 1:
-        for ipath in ipaths:
-            SpacyEnrichment.enrich_documents(cfields, ipath, opath, chunk_size,
-                                             batch_size)
+    if args.cores == 1:
+        for ipath in args.inputs:
+            SpacyEnrichment.enrich_documents(ipath, args)
     else:
-        pool = mp.Pool(cores)
-        for ipath in ipaths:
+        pool = mp.Pool(args.cores)
+        for ipath in args.inputs:
             res = pool.apply_async(
-                    SpacyEnrichment.enrich_documents,
-                    args=(cfields, ipath, opath, chunk_size, batch_size, ))
+                    SpacyEnrichment.enrich_documents, args=(ipath, args, ))
         pool.close()
         pool.join()
         if not res.successful():
@@ -110,11 +97,16 @@ def dir_path_validation(path, create_dir=False):
 
 if __name__ == "__main__":
     pparser = argparse.ArgumentParser()
-    group = pparser.add_mutually_exclusive_group()
-    group.add_argument('--fields', nargs='+', type=str,
+    pparser.add_argument('--fields', nargs='+', type=str,
                        help='Content fields to enrich.')
-    pparser.add_argument('--cores', type=int, default=1,
+    pparser.add_argument('--cores', type=int, default=2,
                          help='How many cores to use?')
+    pparser.add_argument('--noun-chunk', action='store_true',
+                         help='generate noun chunks')
+    pparser.add_argument('--svo', action='store_true',
+                         help='generate svo')
+    pparser.add_argument('--entity', action='store_true',
+                         help='generate entities')
     pparser.add_argument('--inputs', nargs='+', required=True,
                          help='Path to input documents')
     pparser.add_argument('--output', required=True, help='Path to output dir.')
@@ -123,5 +115,4 @@ if __name__ == "__main__":
     args = pparser.parse_args()
     files_path_validation(args.inputs)
     dir_path_validation(args.output, create_dir=True)
-    run_enricher(args.cores, args.fields, args.inputs, args.output,
-                 args.chunk_size, 64)
+    run_enricher(args)

@@ -43,8 +43,7 @@ class SpacyEnrichment(BaseEnricher):
         spy_nlp = textacy.load_spacy('en_core_web_lg')
 
     @classmethod
-    def enrich_documents(cls, cfields, ipath, opath, chunk_size=100000,
-                         batch_size=1000):
+    def enrich_documents(cls, ipath, args):
         """Enrich records in a raw data file.
 
         NLP structures are extracted, namely, named entities, noun chunks and
@@ -53,35 +52,31 @@ class SpacyEnrichment(BaseEnricher):
 
         Parameters
         ----------
-        cfields : list
-            List of fields related to document contents.
         ipath : str
             /path/to/raw/data/file.
-        opath : str
-            /path/to/output/dir/
-        chunk_size : int
-            # of documents to handle once.
-        batch_size : int
-            Buffersize for one batch.
 
         """
 
-        for record_chunk in cls.get_record_chunk(ipath, chunk_size):
+        cfields, opath = args.fields, args.output
+        for record_chunk in cls.get_record_chunk(ipath, args.chunk_size):
             records = textacy.corpus.Corpus(cls.spy_nlp)
             text_stream, metadata_stream = cls.split_records(
                     record_chunk, cfields)
-            records.add_texts(text_stream, metadata_stream, n_threads=10,
-                              batch_size=batch_size)
+            records.add_texts(text_stream, metadata_stream, n_threads=10)
             opath_json = os.path.join(opath,
                                       os.path.basename(ipath) + '.enrich')
             with open(opath_json, 'a') as ofp:
                 for record in records:
                     metadata = record.metadata
                     metadata['spacy_enrichment'] = {
-                            'token': cls.get_tokens(record),
-                            'noun_chunks': cls.get_noun_chunks(record),
-                            'svos': cls.get_svos(record),
-                            'named_entities': cls.get_named_entities(record)}
+                            'token': cls.get_tokens(record)}
+                    if args.noun_chunk:
+                        metadata['noun_chunks'] = cls.get_noun_chunks(record)
+                    if args.svo:
+                        metadata['svos'] = cls.get_svos(record)
+                    if args.entity:
+                        metadata['named_entities'] = \
+                                cls.get_named_entities(record)
                     json.dump(metadata, ofp)
                     ofp.write('\n')
 
