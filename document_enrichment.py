@@ -102,6 +102,8 @@ if __name__ == "__main__":
                          help='How many cores to use?')
     pparser.add_argument('--noun-chunk', action='store_true',
                          help='generate noun chunks')
+    pparser.add_argument('--sents', action='store_true',
+                         help='split to sentences')
     pparser.add_argument('--svo', action='store_true',
                          help='generate svo')
     pparser.add_argument('--entity', action='store_true',

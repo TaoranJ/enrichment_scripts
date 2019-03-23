@@ -40,7 +40,7 @@ def enrich_documents(ipath, args):
 
     if args.entity:
         nlp = textacy.load_spacy('en_core_web_lg', disable=('textcat'))
-    elif args.noun_chunk or args.svo:
+    elif args.noun_chunk or args.svo or args.sents:
         nlp = textacy.load_spacy('en_core_web_lg', disable=('ner', 'textcat'))
     else:
         nlp = textacy.load_spacy('en_core_web_lg',
@@ -65,6 +65,8 @@ def enrich_documents(ipath, args):
                 if args.entity:
                     metadata['named_entities'] = \
                             get_named_entities(record)
+                if args.sents:
+                    metadata['sents'] = list(record.sents)
                 json.dump(metadata, ofp)
                 ofp.write('\n')
 
