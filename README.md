@@ -6,12 +6,12 @@ Simple and easy-to-use scripts for enrichment on text content. Multiprocessing i
 
 If `pip` is used: 
 ```bash
-pip install textacy spacy
+pip install textacy
 ```
 
 If `conda` is used:
 ```bash
-conda install -c conda-forge spacy textacy
+conda install -c conda-forge textacy
 ```
 
 Then download Spacy models. Following command download `en_core_web_lg` for English context enrichment.
