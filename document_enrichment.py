@@ -18,7 +18,7 @@ import os
 import argparse
 import multiprocessing as mp
 
-from spacy_enrichment.spacy_enrichment import SpacyEnrichment
+from spacy_enrichment.spacy_enrichment import enrich_documents
 
 
 def run_enricher(args):
@@ -35,12 +35,11 @@ def run_enricher(args):
 
     if args.cores == 1:
         for ipath in args.inputs:
-            SpacyEnrichment.enrich_documents(ipath, args)
+            enrich_documents(ipath, args)
     else:
         pool = mp.Pool(args.cores)
         for ipath in args.inputs:
-            res = pool.apply_async(
-                    SpacyEnrichment.enrich_documents, args=(ipath, args, ))
+            res = pool.apply_async(enrich_documents, args=(ipath, args, ))
         pool.close()
         pool.join()
         if not res.successful():
@@ -98,7 +97,7 @@ def dir_path_validation(path, create_dir=False):
 if __name__ == "__main__":
     pparser = argparse.ArgumentParser()
     pparser.add_argument('--fields', nargs='+', type=str,
-                       help='Content fields to enrich.')
+                         help='Content fields to enrich.')
     pparser.add_argument('--cores', type=int, default=2,
                          help='How many cores to use?')
     pparser.add_argument('--noun-chunk', action='store_true',
