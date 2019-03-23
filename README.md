@@ -11,7 +11,7 @@ pip install textacy spacy
 
 If `conda` is used:
 ```bash
-conda install -c conda-forege spacy textacy
+conda install -c conda-forge spacy textacy
 ```
 
 Then download Spacy models. Following command download `en_core_web_lg` for English context enrichment.
