@@ -66,7 +66,8 @@ def enrich_documents(ipath, args):
                     metadata['named_entities'] = \
                             get_named_entities(record)
                 if args.sents:
-                    metadata['sents'] = list(record.sents)
+                    metadata['sents'] = [s.lemma_.replace('-PRON-', '')
+                                         for s in record.sents]
                 json.dump(metadata, ofp)
                 ofp.write('\n')
 
